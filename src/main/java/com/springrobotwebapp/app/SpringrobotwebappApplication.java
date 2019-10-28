@@ -1,4 +1,4 @@
-package com.springrobotwebapp.app.util;
+package com.springrobotwebapp.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
