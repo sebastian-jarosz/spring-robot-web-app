@@ -1,6 +1,7 @@
 package com.springrobotwebapp.app.controller;
 
 import com.springrobotwebapp.app.model.Robot;
+import com.springrobotwebapp.app.service.RobotServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,12 @@ import java.util.List;
 public class RobotController {
 
     private final RobotRepository robotRepository;
+    private final RobotServiceImpl robotService;
 
     @Autowired
-    public RobotController(RobotRepository robotRepository){
+    public RobotController(RobotRepository robotRepository, RobotServiceImpl robotService){
         this.robotRepository = robotRepository;
+        this.robotService = robotService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -29,5 +32,15 @@ public class RobotController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Robot> getRobot(){
         return robotRepository.findAll();
+    }
+
+    @RequestMapping("/F")
+    public void sendGoForwardMessage(){
+        robotService.sendGoForwardMessage();
+    }
+
+    @RequestMapping("/S")
+    public void sendSMessage(){
+        robotService.sendStopMessage();
     }
 }
