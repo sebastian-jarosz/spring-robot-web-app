@@ -30,27 +30,27 @@ public class RobotServiceImpl implements RobotService {
 
     @Override
     public void sendGoForwardMessage() {
-        rabbitTemplate.convertAndSend(ROUTING_KEY, EXCHANGE, GO_FORWARD);
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, GO_FORWARD);
     }
 
     @Override
     public void sendGoBackwardMessage() {
-        rabbitTemplate.convertAndSend(ROUTING_KEY, EXCHANGE, GO_BACKWARD);
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, GO_BACKWARD);
     }
 
     @Override
     public void sendGoLeftMessage() {
-        rabbitTemplate.convertAndSend(ROUTING_KEY, EXCHANGE, GO_LEFT);
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, GO_LEFT);
     }
 
     @Override
     public void sendGoRightMessage() {
-        rabbitTemplate.convertAndSend(ROUTING_KEY, EXCHANGE, GO_RIGHT);
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, GO_RIGHT);
     }
 
     @Override
     public void sendStopMessage() {
-        rabbitTemplate.convertAndSend(ROUTING_KEY, EXCHANGE, STOP);
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, STOP);
     }
 
 }

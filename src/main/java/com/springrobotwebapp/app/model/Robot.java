@@ -13,6 +13,9 @@ public class Robot {
 
     private String name;
 
+    public Robot(){}
+
+
     public Integer getId() {
         return id;
     }

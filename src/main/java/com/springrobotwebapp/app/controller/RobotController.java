@@ -1,17 +1,14 @@
 package com.springrobotwebapp.app.controller;
 
-import com.springrobotwebapp.app.model.Robot;
 import com.springrobotwebapp.app.service.RobotServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import com.springrobotwebapp.app.repository.RobotRepository;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/robot")
 public class RobotController {
 
@@ -24,23 +21,26 @@ public class RobotController {
         this.robotService = robotService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void addRobot(@RequestBody Robot robot){
-        robotRepository.save(robot);
+    @GetMapping
+    public String robot() {
+        return "robot";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Robot> getRobot(){
-        return robotRepository.findAll();
+    @PostMapping
+    public void addRobot(@RequestParam("button") String button){
+        System.out.println(button);
+        if("forward".equals(button)){
+            System.out.println("send");
+            robotService.sendGoForwardMessage();
+        } else if("left".equals(button)){
+            robotService.sendGoLeftMessage();
+        } else if("stop".equals(button)){
+            robotService.sendStopMessage();
+        } else if("right".equals(button)){
+            robotService.sendGoRightMessage();
+        } else if("backward".equals(button)){
+            robotService.sendGoBackwardMessage();
+        }
     }
 
-    @RequestMapping("/F")
-    public void sendGoForwardMessage(){
-        robotService.sendGoForwardMessage();
-    }
-
-    @RequestMapping("/S")
-    public void sendSMessage(){
-        robotService.sendStopMessage();
-    }
 }
