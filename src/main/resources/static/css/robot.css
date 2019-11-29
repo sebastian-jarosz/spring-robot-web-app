@@ -1,0 +1,18 @@
+.btn-square {
+    position: relative;
+    width: 20%;
+    max-height: 300px;
+    max-width: 300px;
+}
+.btn-square:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.content-in-square {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
