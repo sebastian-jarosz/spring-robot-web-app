@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class HelloControler {
+public class MainController {
 
     //Inject via application.properties
     @Value("${welcome.message}")
@@ -35,5 +35,10 @@ public class HelloControler {
         model.addAttribute("message", name);
 
         return "hello"; //view
+    }
+
+    @GetMapping("/author")
+    public String author(Model model){
+        return "author";
     }
 }

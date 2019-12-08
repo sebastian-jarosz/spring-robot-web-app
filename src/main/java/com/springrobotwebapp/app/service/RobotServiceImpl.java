@@ -2,9 +2,9 @@ package com.springrobotwebapp.app.service;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@RestController
+@Service
 public class RobotServiceImpl implements RobotService {
 
     //Messages constants
@@ -25,31 +25,33 @@ public class RobotServiceImpl implements RobotService {
 
     public RobotServiceImpl(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
+        this.rabbitTemplate.setExchange(EXCHANGE);
+        this.rabbitTemplate.setRoutingKey(ROUTING_KEY);
     }
 
     @Override
     public void sendGoForwardMessage() {
-        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, GO_FORWARD);
+        rabbitTemplate.convertAndSend(GO_FORWARD);
     }
 
     @Override
     public void sendGoBackwardMessage() {
-        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, GO_BACKWARD);
+        rabbitTemplate.convertAndSend(GO_BACKWARD);
     }
 
     @Override
     public void sendGoLeftMessage() {
-        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, GO_LEFT);
+        rabbitTemplate.convertAndSend(GO_LEFT);
     }
 
     @Override
     public void sendGoRightMessage() {
-        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, GO_RIGHT);
+        rabbitTemplate.convertAndSend(GO_RIGHT);
     }
 
     @Override
     public void sendStopMessage() {
-        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, STOP);
+        rabbitTemplate.convertAndSend(STOP);
     }
 
 }

@@ -1,12 +1,14 @@
 package com.springrobotwebapp.app.controller;
 
+import com.jcraft.jsch.JSchException;
+import com.springrobotwebapp.app.service.RaspberryServiceImpl;
 import com.springrobotwebapp.app.service.RobotServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.springrobotwebapp.app.repository.RobotRepository;
 
-import java.util.List;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/robot")
@@ -14,11 +16,15 @@ public class RobotController {
 
     private final RobotRepository robotRepository;
     private final RobotServiceImpl robotService;
+    private final RaspberryServiceImpl raspberryService;
 
     @Autowired
-    public RobotController(RobotRepository robotRepository, RobotServiceImpl robotService){
+    public RobotController(RobotRepository robotRepository, RobotServiceImpl robotService, RaspberryServiceImpl raspberryService) throws JSchException, IOException {
         this.robotRepository = robotRepository;
         this.robotService = robotService;
+        this.raspberryService = raspberryService;
+        raspberryService.runMqListener();
+        System.out.println("KURWA");
     }
 
     @GetMapping
@@ -27,10 +33,9 @@ public class RobotController {
     }
 
     @PostMapping
-    public void addRobot(@RequestParam("button") String button){
+    public void controlRobot(@RequestParam("button") String button){
         System.out.println(button);
         if("forward".equals(button)){
-            System.out.println("send");
             robotService.sendGoForwardMessage();
         } else if("left".equals(button)){
             robotService.sendGoLeftMessage();
