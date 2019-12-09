@@ -22,23 +22,36 @@
                 </button>
             </div>
             <div>
-                <button name="leftButton" value="left" type="button" class="control-btn btn btn-primary btn-square">
+                <button name="leftButton" value="left" type="button"
+                        class="control-btn btn btn-primary btn-square">
                     <span class="content-in-square">Left</span>
                 </button>
-                <button name="stopButton" value="stop" type="button" class="control-btn btn btn-primary btn-square">
+                <button name="stopButton" value="stop" type="button"
+                        class="control-btn btn btn-primary btn-square">
                     <span class="content-in-square">Stop</span>
                 </button>
-                <button name="rightButton" value="right" type="button" class="control-btn btn btn-primary btn-square">
+                <button name="rightButton" value="right" type="button"
+                        class="control-btn btn btn-primary btn-square">
                     <span class="content-in-square">Right</span>
                 </button>
             </div>
             <div>
                 <button name="backwardButton" value="backward" type="button"
-                        class="steirButton btn btn-primary btn-square" onmousedown="click()" onmouseup="release()">
+                        class="control-btn btn btn-primary btn-square">
                     <span class="content-in-square">Backward</span>
                 </button>
             </div>
         </div>
+    </div>
+    <div>
+        <button name="runButton" value="run" type="button"
+                class="control-btn btn btn-primary btn-square">
+            <span class="content-in-square">Run</span>
+        </button>
+        <button name="killButton" value="kill" type="button"
+                class="control-btn btn btn-primary btn-square">
+            <span class="content-in-square">Kill</span>
+        </button>
     </div>
 </main>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>

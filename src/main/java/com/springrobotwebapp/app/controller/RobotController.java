@@ -23,8 +23,6 @@ public class RobotController {
         this.robotRepository = robotRepository;
         this.robotService = robotService;
         this.raspberryService = raspberryService;
-        raspberryService.runMqListener();
-        System.out.println("KURWA");
     }
 
     @GetMapping
@@ -33,7 +31,7 @@ public class RobotController {
     }
 
     @PostMapping
-    public void controlRobot(@RequestParam("button") String button){
+    public void controlRobot(@RequestParam("button") String button) throws IOException, JSchException {
         System.out.println(button);
         if("forward".equals(button)){
             robotService.sendGoForwardMessage();
@@ -45,6 +43,10 @@ public class RobotController {
             robotService.sendGoRightMessage();
         } else if("backward".equals(button)){
             robotService.sendGoBackwardMessage();
+        } else if("run".equals(button)){
+            raspberryService.runMqListener();
+        } else if("kill".equals(button)){
+            raspberryService.killMqListenerProcess();
         }
     }
 

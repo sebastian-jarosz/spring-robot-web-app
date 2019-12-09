@@ -7,7 +7,8 @@ import java.io.IOException;
 
 public interface RaspberryService {
 
-    public Session connectToRaspberry();
+    public void connectToRaspberry();
     public void runMqListener() throws JSchException, IOException;
+    public void killMqListenerProcess() throws JSchException, IOException;
 
 }

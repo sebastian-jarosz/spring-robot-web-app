@@ -5,7 +5,6 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,15 +18,17 @@ public class RaspberryServiceImpl implements RaspberryService{
     private final String password = "Sebaj132!";
     private final String host = "malinkaseba.local";
     private final int port = 22;
-    private String command = "python3 Desktop/robot_mqtt_subscriber.py\n";
-    String command2 = "hostname\ndf -h\nexit\n";
     private Session session;
+
+    //Commands
+    private String runListenerCommand = "nohup python3 Desktop/robot_mqtt_subscriber.py\n";
+    private String killListenerCommand = "pkill python3\n exit\n";
 
     public RaspberryServiceImpl() {
     }
 
     @Override
-    public Session connectToRaspberry() {
+    public void connectToRaspberry() {
         try {
             JSch jsch = new JSch();
             Session session = jsch.getSession(user, host, port);
@@ -37,43 +38,67 @@ public class RaspberryServiceImpl implements RaspberryService{
             session.connect();
             System.out.println("Connection established.");
             this.session = session;
-            return session;
         } catch (JSchException e) {
             e.printStackTrace();
-            return null;
         }
     }
 
     @Override
     public void runMqListener() throws JSchException, IOException {
-        connectToRaspberry();
-        if(session.isConnected()){
-            Channel channel = session.openChannel("shell");
-            channel.setInputStream(new ByteArrayInputStream(command.getBytes(StandardCharsets.UTF_8)));
-            channel.setOutputStream(System.out);
-            InputStream in = channel.getInputStream();
-            StringBuilder outBuff = new StringBuilder();
-            int exitStatus = -1;
+        getSession();
+        Channel channel = session.openChannel("shell");
+        channel.setInputStream(new ByteArrayInputStream(runListenerCommand.getBytes(StandardCharsets.UTF_8)));
+        channel.setOutputStream(System.out);
+        InputStream in = channel.getInputStream();
+        StringBuilder outBuff = new StringBuilder();
 
-            channel.connect();
+        channel.connect();
 
-            while(!outBuff.toString().contains("Subscribed")){
-                for (int c; ((c = in.read()) >= 0);) {
-                    outBuff.append((char) c);
-                    if(outBuff.toString().contains("Subscribed")){
-                        break;
-                    }
-                }
-
-                if (channel.isClosed()) {
-                    if (in.available() > 0) continue;
-                    exitStatus = channel.getExitStatus();
+        while (!outBuff.toString().contains("'nohup.out'")) {
+            for (int c; ((c = in.read()) >= 0); ) {
+                outBuff.append((char) c);
+                if (outBuff.toString().contains("'nohup.out'")) {
                     break;
                 }
             }
-
-            System.out.println(outBuff.toString());
-
         }
+
+        channel.disconnect();
+        System.out.println(outBuff.toString());
+    }
+
+
+    @Override
+    public void killMqListenerProcess() throws JSchException, IOException {
+        getSession();
+        Channel channel = session.openChannel("shell");
+        channel.setInputStream(new ByteArrayInputStream(killListenerCommand.getBytes(StandardCharsets.UTF_8)));
+        channel.setOutputStream(System.out);
+        InputStream in = channel.getInputStream();
+        StringBuilder outBuff = new StringBuilder();
+
+        channel.connect();
+
+        while (true) {
+            for (int c; ((c = in.read()) >= 0); ) {
+                outBuff.append((char) c);
+            }
+
+            if (channel.isClosed()) {
+                if (in.available() > 0) continue;
+                break;
+            }
+        }
+
+        channel.disconnect();
+        System.out.println(outBuff.toString());
+    }
+
+    public Session getSession() {
+        //In case of closed connection
+        if(session == null || !session.isConnected()) {
+            connectToRaspberry();
+        }
+        return session;
     }
 }
