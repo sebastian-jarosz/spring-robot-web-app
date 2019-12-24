@@ -4,23 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Spring Boot Thymeleaf Hello World Example</title>
+    <title>Malinowy Robot - Strona Główna</title>
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/hello.css}"/>
 
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 </head>
 
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:insert="fragments/header :: header"></div>
 
 <main role="main" class="container">
 
     <div class="starter-template">
-        <h1>Spring Boot Web Thymeleaf Example</h1>
+        <h1>Malinowy Robot</h1>
         <h2>
             <span th:text="'Hello, ' + ${message}"></span>
         </h2>
@@ -31,8 +29,12 @@
     </ol>
 
 </main>
-<!-- /.container -->
+<!--/.container -->
 
 
 </body>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
+
 </html>

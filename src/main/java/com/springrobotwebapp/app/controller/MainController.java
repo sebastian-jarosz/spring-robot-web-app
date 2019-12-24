@@ -23,7 +23,7 @@ public class MainController {
         model.addAttribute("message", message);
         model.addAttribute("tasks", tasks);
 
-        return "hello"; //view
+        return "main"; //view
     }
 
     // /hello?name=kotlin

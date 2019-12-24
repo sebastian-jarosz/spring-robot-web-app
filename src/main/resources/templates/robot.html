@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Robot</title>
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <title>Malinowy Robot - Kontroler</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/robot.css}"/>
 
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:insert="fragments/header :: header"></div>
+
 <main role="main" class="container">
     <div class="starter-template">
         <div class="text-center vertical-center">
@@ -54,9 +56,10 @@
         </button>
     </div>
 </main>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/robot.js}"></script>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/robot.js}"></script>
 
 </body>
 </html>

@@ -14,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class RaspberryServiceImpl implements RaspberryService{
 
+    private Boolean isListening;
+
     private final String user = "pi";
     private final String password = "Sebaj132!";
     private final String host = "malinkaseba.local";
@@ -62,9 +64,9 @@ public class RaspberryServiceImpl implements RaspberryService{
                 }
             }
         }
-
         channel.disconnect();
         System.out.println(outBuff.toString());
+        isListening = Boolean.TRUE;
     }
 
 
@@ -92,6 +94,7 @@ public class RaspberryServiceImpl implements RaspberryService{
 
         channel.disconnect();
         System.out.println(outBuff.toString());
+        isListening = Boolean.FALSE;
     }
 
     public Session getSession() {
