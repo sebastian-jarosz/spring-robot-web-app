@@ -10,59 +10,59 @@
     <link rel="stylesheet" th:href="@{/css/robot.css}"/>
 
 </head>
-<body>
+<body style="padding-top: 70px; background-color: darkgray">
 
-<div th:insert="fragments/header :: header"></div>
+    <div th:insert="fragments/header :: header"></div>
 
-<main role="main" class="container">
-    <div class="starter-template">
-        <div class="text-center vertical-center">
-            <div>
-                <button name="forwardButton" value="forward" type="button"
-                        class="control-btn btn btn-primary btn-square">
-                    <span class="content-in-square">Forward</span>
-                </button>
-            </div>
-            <div>
-                <button name="leftButton" value="left" type="button"
-                        class="control-btn btn btn-primary btn-square">
-                    <span class="content-in-square">Left</span>
-                </button>
-                <button name="stopButton" value="stop" type="button"
-                        class="control-btn btn btn-primary btn-square">
-                    <span class="content-in-square">Stop</span>
-                </button>
-                <button name="rightButton" value="right" type="button"
-                        class="control-btn btn btn-primary btn-square">
-                    <span class="content-in-square">Right</span>
-                </button>
-            </div>
-            <div>
-                <button name="backwardButton" value="backward" type="button"
-                        class="control-btn btn btn-primary btn-square">
-                    <span class="content-in-square">Backward</span>
-                </button>
+    <main role="main" class="container">
+        <div class="starter-template">
+            <div class="text-center vertical-center">
+                <div>
+                    <button name="forwardButton" value="forward" type="button"
+                            class="control-btn btn btn-primary btn-square">
+                        <span class="content-in-square">Forward</span>
+                    </button>
+                </div>
+                <div>
+                    <button name="leftButton" value="left" type="button"
+                            class="control-btn btn btn-primary btn-square">
+                        <span class="content-in-square">Left</span>
+                    </button>
+                    <button name="stopButton" value="stop" type="button"
+                            class="control-btn btn btn-primary btn-square">
+                        <span class="content-in-square">Stop</span>
+                    </button>
+                    <button name="rightButton" value="right" type="button"
+                            class="control-btn btn btn-primary btn-square">
+                        <span class="content-in-square">Right</span>
+                    </button>
+                </div>
+                <div>
+                    <button name="backwardButton" value="backward" type="button"
+                            class="control-btn btn btn-primary btn-square">
+                        <span class="content-in-square">Backward</span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    <div>
-        <button name="runButton" value="run" type="button"
-                class="control-btn btn btn-primary btn-square">
-            <span class="content-in-square">Run</span>
-        </button>
-        <button name="killButton" value="kill" type="button"
-                class="control-btn btn btn-primary btn-square">
-            <span class="content-in-square">Kill</span>
-        </button>
-    </div>
+        <div>
+            <button name="runButton" value="run" type="button"
+                    class="control-btn btn btn-primary btn-square">
+                <span class="content-in-square">Run</span>
+            </button>
+            <button name="killButton" value="kill" type="button"
+                    class="control-btn btn btn-primary btn-square">
+                <span class="content-in-square">Kill</span>
+            </button>
+        </div>
 
-    <div th:insert="fragments/footer :: footer"></div>
+        <div th:insert="fragments/footer :: footer"></div>
 
-</main>
+    </main>
+</body>
 
     <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/robot.js}"></script>
 
-</body>
 </html>
