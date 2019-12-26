@@ -28,7 +28,7 @@ var isKeyPressed = false;
 
 $('body').keydown(function (e) {
     e.preventDefault();
-    if (!isKeyPressed) {
+    if (!isKeyPressed && $('#controlButtons').is(':visible')) {
         switch (e.code) {
 
             case 'KeyW':
