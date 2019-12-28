@@ -14,8 +14,8 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class RaspberryServiceImpl implements RaspberryService{
 
-    public Boolean isListening;
-    public Boolean isMqttProcessRunning;
+    public Boolean isListening = Boolean.FALSE;
+    public Boolean isMqttProcessRunning = Boolean.FALSE;
 
     private final String USER = "pi";
     private final String PASSWORD = "Sebaj132!";
@@ -53,82 +53,88 @@ public class RaspberryServiceImpl implements RaspberryService{
     public void runMqListener() throws JSchException, IOException {
         getSession();
         checkMqttProcess();
-        Channel channel = session.openChannel("shell");
-        channel.setInputStream(new ByteArrayInputStream(runListenerCommand.getBytes(StandardCharsets.UTF_8)));
-        channel.setOutputStream(System.out);
-        InputStream inputStream = channel.getInputStream();
-        StringBuilder outBuff = new StringBuilder();
+        if(session != null && isMqttProcessRunning && !isListening) {
+            Channel channel = session.openChannel("shell");
+            channel.setInputStream(new ByteArrayInputStream(runListenerCommand.getBytes(StandardCharsets.UTF_8)));
+            channel.setOutputStream(System.out);
+            InputStream inputStream = channel.getInputStream();
+            StringBuilder outBuff = new StringBuilder();
 
-        channel.connect();
+            channel.connect();
 
-        while (!outBuff.toString().contains("nohup.out")) {
-            for (int c; ((c = inputStream.read()) >= 0); ) {
-                outBuff.append((char) c);
-                if (outBuff.toString().contains("nohup.out")) {
-                    break;
+            while (!outBuff.toString().contains("nohup.out")) {
+                for (int c; ((c = inputStream.read()) >= 0); ) {
+                    outBuff.append((char) c);
+                    if (outBuff.toString().contains("nohup.out")) {
+                        break;
+                    }
                 }
             }
-        }
 
-        channel.disconnect();
-        System.out.println(outBuff.toString());
-        isListening = Boolean.TRUE;
+            channel.disconnect();
+            System.out.println(outBuff.toString());
+            isListening = Boolean.TRUE;
+        }
     }
 
     @Override
     public void checkMqttProcess() throws JSchException, IOException {
         getSession();
-        Channel channel = session.openChannel("shell");
-        channel.setInputStream(new ByteArrayInputStream(checkMqttProcessCommand.getBytes(StandardCharsets.UTF_8)));
-        channel.setOutputStream(System.out);
-        InputStream inputStream = channel.getInputStream();
-        StringBuilder outBuff = new StringBuilder();
+        if (session != null && !isMqttProcessRunning) {
+            Channel channel = session.openChannel("shell");
+            channel.setInputStream(new ByteArrayInputStream(checkMqttProcessCommand.getBytes(StandardCharsets.UTF_8)));
+            channel.setOutputStream(System.out);
+            InputStream inputStream = channel.getInputStream();
+            StringBuilder outBuff = new StringBuilder();
 
-        channel.connect();
+            channel.connect();
 
-        while (!outBuff.toString().contains("] rabbitmq_mqtt")) {
-            for (int c; ((c = inputStream.read()) >= 0); ) {
-                outBuff.append((char) c);
-                if (outBuff.toString().contains("] rabbitmq_mqtt")) {
-                    break;
+            while (!outBuff.toString().contains("] rabbitmq_mqtt")) {
+                for (int c; ((c = inputStream.read()) >= 0); ) {
+                    outBuff.append((char) c);
+                    if (outBuff.toString().contains("] rabbitmq_mqtt")) {
+                        break;
+                    }
                 }
             }
-        }
 
-        channel.disconnect();
-        System.out.println(outBuff.toString());
-        if(outBuff.toString().contains(RUNNING_STATUS)){
-            isMqttProcessRunning = Boolean.TRUE;
-        } else {
-            isMqttProcessRunning = Boolean.FALSE;
+            channel.disconnect();
+            System.out.println(outBuff.toString());
+            if (outBuff.toString().contains(RUNNING_STATUS)) {
+                isMqttProcessRunning = Boolean.TRUE;
+            } else {
+                isMqttProcessRunning = Boolean.FALSE;
+            }
         }
     }
 
     @Override
     public void killMqListenerProcess() throws JSchException, IOException {
         getSession();
-        Channel channel = session.openChannel("shell");
-        channel.setInputStream(new ByteArrayInputStream(killListenerCommand.getBytes(StandardCharsets.UTF_8)));
-        channel.setOutputStream(System.out);
-        InputStream inputStream = channel.getInputStream();
-        StringBuilder outBuff = new StringBuilder();
+        if (session != null) {
+            Channel channel = session.openChannel("shell");
+            channel.setInputStream(new ByteArrayInputStream(killListenerCommand.getBytes(StandardCharsets.UTF_8)));
+            channel.setOutputStream(System.out);
+            InputStream inputStream = channel.getInputStream();
+            StringBuilder outBuff = new StringBuilder();
 
-        channel.connect();
+            channel.connect();
 
-        while (true) {
-            for (int c; ((c = inputStream.read()) >= 0); ) {
-                outBuff.append((char) c);
+            while (true) {
+                for (int c; ((c = inputStream.read()) >= 0); ) {
+                    outBuff.append((char) c);
+                }
+
+                if (channel.isClosed()) {
+                    if (inputStream.available() > 0) continue;
+                    break;
+                }
             }
 
-            if (channel.isClosed()) {
-                if (inputStream.available() > 0) continue;
-                break;
-            }
+            channel.disconnect();
+            System.out.println(outBuff.toString());
+            isListening = Boolean.FALSE;
         }
-
-        channel.disconnect();
-        System.out.println(outBuff.toString());
-        isListening = Boolean.FALSE;
     }
 
     public Session getSession() {

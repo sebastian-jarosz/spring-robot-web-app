@@ -1,26 +1,75 @@
 // language=JQuery-CSS
 
 //AJAX Post
-
 function sendAjaxRequest(message) {
     $.ajax({
         type: "POST",
         url: "/robot",
+        dataType: "json",
         data: {button: message},
         success: function (result) {
             console.log("Message sent");
-            console.log(message)
+            console.log(message);
+            if(message === 'run'){
+                runFunction(result);
+            }
+            console.log(result);
         },
-        error: function () {
-            console.log("Dupa");
+        error: function (result) {
+            console.log("Request failed");
+            console.log(result);
         }
     })
 }
+
+function runFunction(result) {
+    if (result.IS_LISTENING === 'false') {
+        alert("Problem połączenia z RaspberryPi");
+        $('#main').show();
+        $('#controlButtons').hide();
+        $('#connectingInfo').hide();
+    } else if (result.IS_MQTT_PROCESS_RUNNING === 'false') {
+        alert("RasberryPi jeszcze nie jest gotowe - proszę poczekać ok. 1 min");
+        $('#main').show();
+        $('#controlButtons').hide();
+        $('#connectingInfo').hide();
+    } else {
+        $('#main').show();
+        $('#connectingInfo').hide();
+        $('#controlButtons').show();
+    }
+}
+
+$( document ).ready(function() {
+    $.get({
+        url: "/robot/connectionInfo",
+        dataType: "json",
+        success: function(result){
+            if (result.IS_LISTENING === 'false' || result.IS_MQTT_PROCESS_RUNNING === 'false') {
+                $('#main').show();
+                $('#controlButtons').hide();
+            } else {
+                $('#main').show();
+                $('#controlButtons').show();
+            }
+        }
+    })
+});
 
 $('.control-btn').on('click', function (e) {
     e.preventDefault();
     var message = $(this).val();
     sendAjaxRequest(message)
+});
+
+$('.run-btn').on('click', function (e) {
+    e.preventDefault();
+    $('#main').hide();
+    $('#connectingInfo').show();
+    var runMessage = $('#runButton').val();
+    var stopMessage = $('#stopButton').val();
+    sendAjaxRequest(runMessage);
+    sendAjaxRequest(stopMessage);
 });
 
 //Robot moves on keys
@@ -64,7 +113,7 @@ $('body').keydown(function (e) {
 
 $('body').keyup(function (e) {
     e.preventDefault();
-    if (isKeyPressed) {
+    if (isKeyPressed && $('#controlButtons').is(':visible')) {
         switch (e.code) {
 
             case 'KeyW':

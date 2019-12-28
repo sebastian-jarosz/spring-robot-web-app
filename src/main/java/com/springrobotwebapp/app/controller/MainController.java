@@ -26,19 +26,25 @@ public class MainController {
         return "main"; //view
     }
 
-    // /hello?name=kotlin
-    @GetMapping("/hello")
-    public String mainWithParam(
-            @RequestParam(name = "name", required = false, defaultValue = "")
-                    String name, Model model) {
-
-        model.addAttribute("message", name);
-
-        return "hello"; //view
-    }
+//todo remove this shit
+//
+//    @GetMapping("/hello")
+//    public String mainWithParam(
+//            @RequestParam(name = "name", required = false, defaultValue = "")
+//                    String name, Model model) {
+//
+//        model.addAttribute("message", name);
+//
+//        return "hello"; //view
+//    }
 
     @GetMapping("/author")
-    public String author(Model model){
+    public String author(){
         return "author";
+    }
+
+    @GetMapping("/tech")
+    public String tech() {
+        return "tech";
     }
 }
