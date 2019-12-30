@@ -10,3 +10,8 @@ h1{
 h2{
     color:#FF0000;
 }
+
+body {
+    padding-top: 70px;
+    background-color: white;
+}
