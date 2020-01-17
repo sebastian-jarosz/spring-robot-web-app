@@ -47,7 +47,7 @@ $( document ).ready(function() {
         success: function(result){
             if (result.IS_LISTENING === 'false' || result.IS_MQTT_PROCESS_RUNNING === 'false') {
                 $('#main').show();
-                $('#controlButtons').hide();
+                $('#controlButtons').show();
             } else {
                 $('#main').show();
                 $('#controlButtons').show();

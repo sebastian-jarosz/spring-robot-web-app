@@ -10,54 +10,61 @@
     <link rel="stylesheet" th:href="@{/css/robot.css}"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
+    <!--Icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
 </head>
 <body>
 
     <div th:insert="fragments/header :: header"></div>
 
-    <div id="connectingInfo" style="display: none">
-        Łączenie z RaspberryPi
+    <div id="connectionStatus" class="text-center container-fluid text-white-50" style="background-color: #FF0000">NOT CONNECTED
+        <br><button id="killButton" value="kill" type="button">Kill</button>
     </div>
 
-    <main id="main" role="main" class="container" style="padding: 10px">
-        <div id="controlButtons" style="display: none">
-            <div class="text-center vertical-center">
+    <div id="connectingInfo" class="text-center text-warning container center-content" style="display: none">
+        ŁĄCZENIE Z ROBOTEM
+        <br>
+        <div class="spinner-border"></div>
+    </div>
+
+    <main id="main" role="main" class="container">
+        <div id="controlButtons" class="center" style="display: none">
+            <div class="text-center">
                 <div>
                     <button id="forwardButton" value="forward" type="button"
-                            class="control-btn btn btn-primary btn-square">
-                        <span class="content-in-square">Forward</span>
+                            class="control-btn btn btn-dark btn-square">
+                        <span class="center-content fas fa-arrow-up arrow"></span>
                     </button>
                 </div>
                 <div>
                     <button id="leftButton" value="left" type="button"
-                            class="control-btn btn btn-primary btn-square">
-                        <span class="content-in-square">Left</span>
+                            class="control-btn btn btn-dark btn-square">
+                        <span class="center-content fas fa-arrow-left arrow"></span>
                     </button>
                     <button id="stopButton" value="stop" type="button"
-                            class="control-btn btn btn-primary btn-square">
-                        <span class="content-in-square">Stop</span>
+                            class="control-btn btn btn-dark btn-square">
+                        <span class="center-content fas fa-stop arrow"></span>
                     </button>
                     <button id="rightButton" value="right" type="button"
-                            class="control-btn btn btn-primary btn-square">
-                        <span class="content-in-square">Right</span>
+                            class="control-btn btn btn-dark btn-square">
+                        <span class="center-content fas fa-arrow-right arrow"></span>
                     </button>
                 </div>
                 <div>
                     <button id="backwardButton" value="backward" type="button"
-                            class="control-btn btn btn-primary btn-square">
-                        <span class="content-in-square">Backward</span>
+                            class="control-btn btn btn-dark btn-square">
+                        <span class="center-content fas fa-arrow-down arrow"></span>
                     </button>
                 </div>
             </div>
         </div>
+
+        <!--Connect with robot-->
         <div>
             <button id="runButton" value="run" type="button"
-                    class="run-btn btn btn-primary btn-square">
-                <span class="content-in-square">Run</span>
-            </button>
-            <button id="killButton" value="kill" type="button"
-                    class="control-btn btn btn-primary btn-square">
-                <span class="content-in-square">Kill</span>
+                    class="center-content run-btn btn btn-dark btn-rectangle" style="display: none">
+                <span class="center-content">CONNECT WITH ROBOT</span>
             </button>
         </div>
 

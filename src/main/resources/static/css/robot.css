@@ -1,18 +1,37 @@
 .btn-square {
     position: relative;
     width: 20%;
-    max-height: 300px;
-    max-width: 300px;
+    max-height: 15rem;
+    max-width: 15rem;
 }
+
 .btn-square:after {
     content: "";
     display: block;
     padding-bottom: 100%;
 }
 
-.content-in-square {
+.btn-rectangle {
+    position: relative;
+    width: 40%;
+    max-height: 10rem;
+    max-width: 30rem;
+}
+
+.btn-rectangle:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.center-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+.arrow {
+    font-size: 100%;
+    color: #c0c0c0;
 }
