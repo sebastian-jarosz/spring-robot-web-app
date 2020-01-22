@@ -28,15 +28,18 @@ function runFunction(result) {
         $('#main').show();
         $('#controlButtons').hide();
         $('#connectingInfo').hide();
+        $('#runButton').show();
     } else if (result.IS_MQTT_PROCESS_RUNNING === 'false') {
         alert("RasberryPi jeszcze nie jest gotowe - proszę poczekać ok. 1 min");
         $('#main').show();
         $('#controlButtons').hide();
         $('#connectingInfo').hide();
+        $('#runButton').show();
     } else {
         $('#main').show();
         $('#connectingInfo').hide();
         $('#controlButtons').show();
+        $('#runButton').hide();
     }
 }
 
@@ -47,10 +50,12 @@ $( document ).ready(function() {
         success: function(result){
             if (result.IS_LISTENING === 'false' || result.IS_MQTT_PROCESS_RUNNING === 'false') {
                 $('#main').show();
-                $('#controlButtons').show();
+                $('#controlButtons').hide();
+                $('#runButton').show();
             } else {
                 $('#main').show();
                 $('#controlButtons').show();
+                $('#runButton').hide();
             }
         }
     })
