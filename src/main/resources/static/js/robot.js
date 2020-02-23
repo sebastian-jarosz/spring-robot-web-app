@@ -14,6 +14,7 @@ function sendAjaxRequest(message) {
                 connectFunction(result);
             } else if (message === 'kill') {
                 killFunction(result);
+                changeSpeedFunction(result);
             } else if (message === 'speed'){
                 changeSpeedFunction(result);
             }
@@ -120,6 +121,7 @@ $('#connectButton').on('click', function (e) {
 //Function used for connecting to robot
 $('#killButton').on('click', function (e) {
     e.preventDefault();
+    $('#configButtons').hide();
     $('#main').hide();
     $('#turningOffInfo').show();
     var killMessage = $('#killButton').val();
