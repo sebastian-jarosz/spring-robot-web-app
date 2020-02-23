@@ -10,8 +10,8 @@ function sendAjaxRequest(message) {
         success: function (result) {
             console.log("Message sent");
             console.log(message);
-            if(message === 'run'){
-                runFunction(result);
+            if(message === 'connect'){
+                connectFunction(result);
             }
             console.log(result);
         },
@@ -22,27 +22,29 @@ function sendAjaxRequest(message) {
     })
 }
 
-function runFunction(result) {
+//Function executed while message is 'connect'
+function connectFunction(result) {
     if (result.IS_LISTENING === 'false') {
         alert("Problem połączenia z RaspberryPi");
         $('#main').show();
         $('#controlButtons').hide();
         $('#connectingInfo').hide();
-        $('#runButton').show();
+        $('#connectButton').show();
     } else if (result.IS_MQTT_PROCESS_RUNNING === 'false') {
         alert("RasberryPi jeszcze nie jest gotowe - proszę poczekać ok. 1 min");
         $('#main').show();
         $('#controlButtons').hide();
         $('#connectingInfo').hide();
-        $('#runButton').show();
+        $('#connectButton').show();
     } else {
         $('#main').show();
         $('#connectingInfo').hide();
         $('#controlButtons').show();
-        $('#runButton').hide();
+        $('#connectButton').hide();
     }
 }
 
+//On load function
 $( document ).ready(function() {
     $.get({
         url: "/robot/connectionInfo",
@@ -51,35 +53,38 @@ $( document ).ready(function() {
             if (result.IS_LISTENING === 'false' || result.IS_MQTT_PROCESS_RUNNING === 'false') {
                 $('#main').show();
                 $('#controlButtons').hide();
-                $('#runButton').show();
+                $('#connectButton').show();
             } else {
                 $('#main').show();
                 $('#controlButtons').show();
-                $('#runButton').hide();
+                $('#connectButton').hide();
             }
         }
     })
 });
 
+//Function used to send messages from proper buttons
 $('.control-btn').on('click', function (e) {
     e.preventDefault();
     var message = $(this).val();
     sendAjaxRequest(message)
 });
 
-$('.run-btn').on('click', function (e) {
+//Function used for connecting to robot
+$('#connectButton').on('click', function (e) {
     e.preventDefault();
     $('#main').hide();
     $('#connectingInfo').show();
-    var runMessage = $('#runButton').val();
+    var connectMessage = $('#connectButton').val();
     var stopMessage = $('#stopButton').val();
-    sendAjaxRequest(runMessage);
+    sendAjaxRequest(connectMessage);
     sendAjaxRequest(stopMessage);
 });
 
 //Robot moves on keys
 var isKeyPressed = false;
 
+//Keyboard keys pressed function
 $('body').keydown(function (e) {
     e.preventDefault();
     if (!isKeyPressed && $('#controlButtons').is(':visible')) {
@@ -116,6 +121,7 @@ $('body').keydown(function (e) {
     }
 });
 
+//Keyboard keys released function
 $('body').keyup(function (e) {
     e.preventDefault();
     if (isKeyPressed && $('#controlButtons').is(':visible')) {

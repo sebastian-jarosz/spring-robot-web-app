@@ -50,7 +50,9 @@ public class RobotController {
             robotService.sendGoRightMessage();
         } else if ("backward".equals(button)) {
             robotService.sendGoBackwardMessage();
-        } else if ("run".equals(button)) {
+        } else if ("speed".equals(button)) {
+            robotService.sendChangeSpeedMessage();
+        } else if ("connect".equals(button)) {
             raspberryService.runMqListener();
             hashMap.put(isListeningStr, raspberryService.isListening.toString());
             hashMap.put(isMqttProcessRunningStr, raspberryService.isMqttProcessRunning.toString());

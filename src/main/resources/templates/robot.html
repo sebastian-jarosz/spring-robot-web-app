@@ -18,8 +18,18 @@
 
     <div th:insert="fragments/header :: header"></div>
 
-    <div id="connectionStatus" class="text-center container-fluid text-white-50" style="background-color: #FF0000">NOT CONNECTED
-        <br><button class="control-btn" id="killButton" value="kill" type="button">Kill</button>
+    <div id="connectionStatus" class="text-center container-fluid text-white-50" style="background-color: red">NOT CONNECTED
+    </div>
+    <br>
+    <div id="configButtons" class="text-center container-fluid text-white-50">
+        <button id="killButton" value="kill" type="button"
+                class="control-btn">
+            KILL
+        </button>
+        <button id="speedButton" value="speed" type="button"
+                class="control-btn">
+            SPEED
+        </button>
     </div>
 
     <div id="connectingInfo" class="text-center text-warning container center-content" style="display: none">
@@ -62,7 +72,7 @@
 
         <!--Connect with robot-->
         <div>
-            <button id="runButton" value="run" type="button"
+            <button id="connectButton" value="connect" type="button"
                     class="center-content run-btn btn btn-dark btn-rectangle" style="display: none">
                 <span class="center-content">CONNECT WITH ROBOT</span>
             </button>

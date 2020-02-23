@@ -13,6 +13,7 @@ public class RobotServiceImpl implements RobotService {
     private final String GO_LEFT = "left";
     private final String GO_RIGHT = "right";
     private final String STOP = "stop";
+    private final String CHANGE_SPEED = "speed";
 
     //Message exchange
     private final String EXCHANGE = "amq.topic";
@@ -54,4 +55,8 @@ public class RobotServiceImpl implements RobotService {
         rabbitTemplate.convertAndSend(STOP);
     }
 
+    @Override
+    public void sendChangeSpeedMessage() {
+        rabbitTemplate.convertAndSend(CHANGE_SPEED);
+    }
 }
