@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.springrobotwebapp.app.repository.RobotRepository;
 
 import java.io.IOException;
 import java.util.HashMap;
