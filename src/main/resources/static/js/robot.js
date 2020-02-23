@@ -10,8 +10,12 @@ function sendAjaxRequest(message) {
         success: function (result) {
             console.log("Message sent");
             console.log(message);
-            if(message === 'connect'){
+            if (message === 'connect') {
                 connectFunction(result);
+            } else if (message === 'kill') {
+                killFunction(result);
+            } else if (message === 'speed'){
+                changeSpeedFunction(result);
             }
             console.log(result);
         },
@@ -27,37 +31,69 @@ function connectFunction(result) {
     if (result.IS_LISTENING === 'false') {
         alert("Problem połączenia z RaspberryPi");
         $('#main').show();
-        $('#controlButtons').hide();
         $('#connectingInfo').hide();
+        $('#controlButtons').hide();
+        $('#configButtons').hide();
         $('#connectButton').show();
+        $('#connectionStatus').css('background-color', 'red').text('NIE POŁĄCZONO');
     } else if (result.IS_MQTT_PROCESS_RUNNING === 'false') {
         alert("RasberryPi jeszcze nie jest gotowe - proszę poczekać ok. 1 min");
         $('#main').show();
-        $('#controlButtons').hide();
         $('#connectingInfo').hide();
+        $('#controlButtons').hide();
+        $('#configButtons').hide();
         $('#connectButton').show();
+        $('#connectionStatus').css('background-color', 'red').text('NIE POŁĄCZONO');
     } else {
         $('#main').show();
         $('#connectingInfo').hide();
         $('#controlButtons').show();
+        $('#configButtons').show();
         $('#connectButton').hide();
+        $('#connectionStatus').css('background-color', 'green').text('POŁĄCZONO');
+    }
+}
+
+//Function executed while message is 'kill'
+function killFunction(result) {
+    if (result.IS_LISTENING === 'false') {
+        $('#main').show();
+        $('#turningOffInfo').hide();
+        $('#controlButtons').hide();
+        $('#configButtons').hide();
+        $('#connectButton').show();
+        $('#connectionStatus').css('background-color', 'red').text('NIE POŁĄCZONO');
+    }
+}
+
+function changeSpeedFunction(result){
+    if(result.IS_TOP_SPEED_MODE_ON === 'true'){
+        $('#speedButton').text('TRYB WOLNY').css('background-color', 'cornflowerblue')
+    } else {
+        $('#speedButton').text('TRYB SZYBKI').css('background-color', 'orange')
     }
 }
 
 //On load function
-$( document ).ready(function() {
+$(document).ready(function () {
     $.get({
         url: "/robot/connectionInfo",
         dataType: "json",
-        success: function(result){
+        success: function (result) {
             if (result.IS_LISTENING === 'false' || result.IS_MQTT_PROCESS_RUNNING === 'false') {
                 $('#main').show();
                 $('#controlButtons').hide();
+                $('#configButtons').hide();
                 $('#connectButton').show();
+                $('#connectionStatus').css('background-color', 'red').text('NIE POŁĄCZONO');
+                changeSpeedFunction(result);
             } else {
                 $('#main').show();
                 $('#controlButtons').show();
+                $('#configButtons').show();
                 $('#connectButton').hide();
+                $('#connectionStatus').css('background-color', 'green').text('POŁĄCZONO');
+                changeSpeedFunction(result);
             }
         }
     })
@@ -81,79 +117,88 @@ $('#connectButton').on('click', function (e) {
     sendAjaxRequest(stopMessage);
 });
 
+//Function used for connecting to robot
+$('#killButton').on('click', function (e) {
+    e.preventDefault();
+    $('#main').hide();
+    $('#turningOffInfo').show();
+    var killMessage = $('#killButton').val();
+    sendAjaxRequest(killMessage);
+});
+
 //Robot moves on keys
 var isKeyPressed = false;
 
+$('body')
 //Keyboard keys pressed function
-$('body').keydown(function (e) {
-    e.preventDefault();
-    if (!isKeyPressed && $('#controlButtons').is(':visible')) {
-        switch (e.code) {
+    .keydown(function (e) {
+        e.preventDefault();
+        if (!isKeyPressed && $('#controlButtons').is(':visible')) {
+            switch (e.code) {
 
-            case 'KeyW':
-            case 'ArrowUp':
-                console.log(e.code);
-                sendAjaxRequest('forward');
-                isKeyPressed = true;
-                break;
+                case 'KeyW':
+                case 'ArrowUp':
+                    console.log(e.code);
+                    sendAjaxRequest('forward');
+                    isKeyPressed = true;
+                    break;
 
-            case 'KeyA':
-            case 'ArrowLeft':
-                console.log(e.code);
-                sendAjaxRequest('left');
-                isKeyPressed = true;
-                break;
+                case 'KeyA':
+                case 'ArrowLeft':
+                    console.log(e.code);
+                    sendAjaxRequest('left');
+                    isKeyPressed = true;
+                    break;
 
-            case 'KeyD':
-            case 'ArrowRight':
-                console.log(e.code);
-                sendAjaxRequest('right');
-                isKeyPressed = true;
-                break;
+                case 'KeyD':
+                case 'ArrowRight':
+                    console.log(e.code);
+                    sendAjaxRequest('right');
+                    isKeyPressed = true;
+                    break;
 
-            case 'KeyS':
-            case 'ArrowDown':
-                console.log(e.code);
-                sendAjaxRequest('backward');
-                isKeyPressed = true;
-                break;
+                case 'KeyS':
+                case 'ArrowDown':
+                    console.log(e.code);
+                    sendAjaxRequest('backward');
+                    isKeyPressed = true;
+                    break;
+            }
         }
-    }
-});
+    })
+    //Keyboard keys released function
+    .keyup(function (e) {
+        e.preventDefault();
+        if (isKeyPressed && $('#controlButtons').is(':visible')) {
+            switch (e.code) {
 
-//Keyboard keys released function
-$('body').keyup(function (e) {
-    e.preventDefault();
-    if (isKeyPressed && $('#controlButtons').is(':visible')) {
-        switch (e.code) {
+                case 'KeyW':
+                case 'ArrowUp':
+                    console.log("STOP");
+                    sendAjaxRequest('stop');
+                    isKeyPressed = false;
+                    break;
 
-            case 'KeyW':
-            case 'ArrowUp':
-                console.log("STOP");
-                sendAjaxRequest('stop');
-                isKeyPressed = false;
-                break;
+                case 'KeyA':
+                case 'ArrowLeft':
+                    console.log("STOP");
+                    sendAjaxRequest('stop');
+                    isKeyPressed = false;
+                    break;
 
-            case 'KeyA':
-            case 'ArrowLeft':
-                console.log("STOP");
-                sendAjaxRequest('stop');
-                isKeyPressed = false;
-                break;
+                case 'KeyD':
+                case 'ArrowRight':
+                    console.log("STOP");
+                    sendAjaxRequest('stop');
+                    isKeyPressed = false;
+                    break;
 
-            case 'KeyD':
-            case 'ArrowRight':
-                console.log("STOP");
-                sendAjaxRequest('stop');
-                isKeyPressed = false;
-                break;
-
-            case 'KeyS':
-            case 'ArrowDown':
-                console.log("STOP");
-                sendAjaxRequest('stop');
-                isKeyPressed = false;
-                break;
+                case 'KeyS':
+                case 'ArrowDown':
+                    console.log("STOP");
+                    sendAjaxRequest('stop');
+                    isKeyPressed = false;
+                    break;
+            }
         }
-    }
-});
+    });

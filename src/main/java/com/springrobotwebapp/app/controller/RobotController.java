@@ -16,11 +16,14 @@ import java.util.HashMap;
 @RequestMapping("/robot")
 public class RobotController {
 
+    public Boolean isTopSpeedModeOn = Boolean.FALSE;
+
     private final RobotServiceImpl robotService;
     private final RaspberryServiceImpl raspberryService;
 
-    private final String isListeningStr = "IS_LISTENING";
-    private final String isMqttProcessRunningStr = "IS_MQTT_PROCESS_RUNNING";
+    private final String IS_LISTENING_STRING = "IS_LISTENING";
+    private final String IS_MQTT_PROCESS_RUNNING_STRING = "IS_MQTT_PROCESS_RUNNING";
+    private final String IS_TOP_SPEED_MODE_ON_STRING = "IS_TOP_SPEED_MODE_ON";
 
     @Autowired
     public RobotController(RobotServiceImpl robotService, RaspberryServiceImpl raspberryService) throws JSchException, IOException {
@@ -51,12 +54,16 @@ public class RobotController {
             robotService.sendGoBackwardMessage();
         } else if ("speed".equals(button)) {
             robotService.sendChangeSpeedMessage();
+            isTopSpeedModeOn = isTopSpeedModeOn ? Boolean.FALSE : Boolean.TRUE;
+            hashMap.put(IS_TOP_SPEED_MODE_ON_STRING, isTopSpeedModeOn.toString());
         } else if ("connect".equals(button)) {
             raspberryService.runMqListener();
-            hashMap.put(isListeningStr, raspberryService.isListening.toString());
-            hashMap.put(isMqttProcessRunningStr, raspberryService.isMqttProcessRunning.toString());
+            hashMap.put(IS_LISTENING_STRING, raspberryService.isListening.toString());
+            hashMap.put(IS_MQTT_PROCESS_RUNNING_STRING, raspberryService.isMqttProcessRunning.toString());
         } else if ("kill".equals(button)) {
             raspberryService.killMqListenerProcess();
+            hashMap.put(IS_LISTENING_STRING, raspberryService.isListening.toString());
+            hashMap.put(IS_MQTT_PROCESS_RUNNING_STRING, raspberryService.isMqttProcessRunning.toString());
         }
         return ResponseEntity.ok(hashMap);
     }
@@ -64,8 +71,9 @@ public class RobotController {
     @GetMapping("/connectionInfo")
     public ResponseEntity<?> getConnectionInfo(){
         HashMap<String, String> hashMap = new HashMap();
-        hashMap.put(isListeningStr, raspberryService.isListening.toString());
-        hashMap.put(isMqttProcessRunningStr, raspberryService.isMqttProcessRunning.toString());
+        hashMap.put(IS_LISTENING_STRING, raspberryService.isListening.toString());
+        hashMap.put(IS_MQTT_PROCESS_RUNNING_STRING, raspberryService.isMqttProcessRunning.toString());
+        hashMap.put(IS_TOP_SPEED_MODE_ON_STRING, isTopSpeedModeOn.toString());
         return ResponseEntity.ok(hashMap);
     }
 
