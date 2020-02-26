@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,25 +25,16 @@ public class MainController {
         return "main"; //view
     }
 
-//todo remove this shit
-//
-//    @GetMapping("/hello")
-//    public String mainWithParam(
-//            @RequestParam(name = "name", required = false, defaultValue = "")
-//                    String name, Model model) {
-//
-//        model.addAttribute("message", name);
-//
-//        return "hello"; //view
-//    }
-
+    //Return author page
     @GetMapping("/author")
     public String author(){
         return "author";
     }
 
+    //Return tech page
     @GetMapping("/tech")
     public String tech() {
         return "tech";
     }
+
 }

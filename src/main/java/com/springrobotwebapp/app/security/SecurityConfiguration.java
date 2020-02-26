@@ -36,13 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/", "/webjars/**", "/resources/**").permitAll()
+                .antMatchers("/").permitAll()
                 .and()
-                .csrf().disable().authorizeRequests().anyRequest().hasRole("ADMIN")
-                .and()
-                .formLogin().permitAll()
-                .and()
-                .logout().permitAll(); //Logout when go to /logout url
+                .csrf().disable();
     }
 
 }
