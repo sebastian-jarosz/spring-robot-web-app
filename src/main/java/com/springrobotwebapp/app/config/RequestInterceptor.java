@@ -1,28 +1,39 @@
 package com.springrobotwebapp.app.config;
 
+import com.springrobotwebapp.app.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Component
 public class RequestInterceptor implements HandlerInterceptor {
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("Jestem wolany przed!");
-        System.out.println(request.getRequestURL().toString());
-        if(request.getRequestURL().toString().equals("http://localhost:8080/")) {
-            response.sendRedirect("/robot");
-            return false;
-        }
-        return true;
+    @Autowired
+    User user;
+
+    private ArrayList<String> excludedItemsList = new ArrayList<>(Arrays.asList("css", "js", "png", "welcome", "logout"));
+
+    private boolean isStringContainsTextFromArray(String string, ArrayList<String> textList) {
+        return textList.stream().anyMatch(string::contains);
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("Jestem wolany PO!");
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+
+        if (user.getUsername() != null || request.getMethod().equals(RequestMethod.POST) || isStringContainsTextFromArray(request.getRequestURL().toString(), excludedItemsList)){
+            return true;
+        } else {
+            System.out.println(request.getRequestURL().toString());
+            response.sendRedirect("/welcome");
+            return false;
+        }
     }
+
 }
