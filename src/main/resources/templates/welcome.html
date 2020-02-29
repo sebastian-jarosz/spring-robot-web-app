@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
 
-<h1>SIEMANO!</h1>
+    <div th:insert="fragments/cssLinks :: header"></div>
 
-<form name="f" th:action="@{/welcome}" method="post">
-    <div class="container">
-        <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" id="username" name="username">
+    <main role="main" class="container align-middle">
 
-        <button type="submit">Login</button>
-    </div>
-</form>
+            <form name="f" th:action="@{/welcome}" method="post">
 
-</body>
+                <div class="form-group">
+                    <label for="username">Wpisz swoje imię:</label>
+                    <input type="text" class="form-control" placeholder="Enter username" id="username" name="username" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </main>
+
+    <div th:insert="fragments/jsScripts :: footer"></div>
+
+    </body>
 </html>
