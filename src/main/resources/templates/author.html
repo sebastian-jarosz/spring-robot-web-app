@@ -11,10 +11,19 @@
 
     <div th:insert="fragments/header :: header"></div>
 
-    <main role="main" class="container align-middle">
+    <main role="main" class="container">
 
-        <div class="container">
-            Sebastian Jarosz
+        <div class="card" style="width: 25rem;">
+            <h6 class="card-header">Sebastian Jarosz</h6>
+            <img class="card-img-overlay" th:src="@{/img/sebastian_jarosz.png}">
+            <div class="card-body">
+                <p class="card-text">
+                    Jestem studenciak
+                </p>
+            </div>
+            <div class="card-body">
+                <a href="https://pl.linkedin.com/in/sjarosz" class="card-link">LinkedIn</a>
+            </div>
         </div>
 
     </main>
