@@ -21,17 +21,9 @@ public class MainController implements ErrorController {
     @Autowired
     User user;
 
-    //Inject via application.properties
-    @Value("${welcome.message}")
-    private String message;
-
-    private ArrayList<String> tasks = new ArrayList<String>(Arrays.asList("a", "b", "c"));
-
     @GetMapping("/")
     public String main(Model model){
-        model.addAttribute("message", message);
-        model.addAttribute(Constants.USERNAME, user.getUsername());
-        model.addAttribute("tasks", tasks);
+        model.addAttribute(Constants.USERNAME, Constants.WELCOME_MESSAGE + user.getUsername() + Constants.EXCLAMATION_MARK);
         return "main"; //view
     }
 
@@ -57,13 +49,13 @@ public class MainController implements ErrorController {
     public String postWelcome(@RequestParam(Constants.USERNAME) String username, Model model) {
         System.out.println(username);
         user.setUsername(username);
-        model.addAttribute(Constants.USERNAME, Constants.WELCOME_MESSAGE + user.getUsername());
+        model.addAttribute(Constants.USERNAME, Constants.WELCOME_MESSAGE + user.getUsername() + Constants.EXCLAMATION_MARK);
         return "main";
     }
 
     @GetMapping("/quit")
     public String logout(Model model) {
-        model.addAttribute(Constants.USERNAME, Constants.QUIT_MESSAGE + user.getUsername());
+        model.addAttribute(Constants.USERNAME, Constants.QUIT_MESSAGE + user.getUsername() + Constants.EXCLAMATION_MARK);
         user.removeUsername();
         return "quit";
     }

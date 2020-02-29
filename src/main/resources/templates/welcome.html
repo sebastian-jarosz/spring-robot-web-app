@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <title>Malinowy Robot - Witaj</title>
+</head>
+<body>
+<div th:insert="fragments/cssLinks :: header"></div>
 
-    <div th:insert="fragments/cssLinks :: header"></div>
+<main role="main" class="container">
+    <div class="card-body bg-dark p-5 m-5">
+        <h5 class="card-title text-center text-white">Malinowy Robot</h5>
+        <form name="f" th:action="@{/welcome}" method="post">
+            <div class="form-group">
+                <input type="text" id="username" name="username" class="form-control"
+                       placeholder="Wpisz swoje imię"
+                       required>
+            </div>
+            <div class="text-center">
+                <button class="btn mt-3 btn-md btn-secondary text-center" type="submit">Zaczynamy!</button>
+            </div>
+        </form>
+    </div>
+</main>
 
-    <main role="main" class="container align-middle">
+<div th:insert="fragments/jsScripts :: footer"></div>
 
-            <form name="f" th:action="@{/welcome}" method="post">
+</body>
 
-                <div class="form-group">
-                    <label for="username">Wpisz swoje imię:</label>
-                    <input type="text" class="form-control" placeholder="Enter username" id="username" name="username" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
 
-        </main>
-
-    <div th:insert="fragments/jsScripts :: footer"></div>
-
-    </body>
 </html>

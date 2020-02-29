@@ -11,92 +11,90 @@
 </head>
 <body>
 
-    <div th:insert="fragments/header :: header"></div>
+<div th:insert="fragments/header :: header"></div>
 
-    <main role="main" class="container align-middle">
-        <div class="starter-template">
-            <div id="techCarousel" class="carousel slide container" data-ride="carousel">
+<main role="main" class="container align-middle">
+    <div id="techCarousel" class="carousel slide container" data-ride="carousel">
 
-                <!-- Indicators -->
-                <ul class="carousel-indicators">
-                    <li data-target="#techCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#techCarousel" data-slide-to="1"></li>
-                    <li data-target="#techCarousel" data-slide-to="2"></li>
-                    <li data-target="#techCarousel" data-slide-to="3"></li>
-                    <li data-target="#techCarousel" data-slide-to="4"></li>
-                    <li data-target="#techCarousel" data-slide-to="5"></li>
-                    <li data-target="#techCarousel" data-slide-to="6"></li>
-                    <li data-target="#techCarousel" data-slide-to="7"></li>
-                    <li data-target="#techCarousel" data-slide-to="8"></li>
-                    <li data-target="#techCarousel" data-slide-to="9"></li>
-                </ul>
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#techCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#techCarousel" data-slide-to="1"></li>
+            <li data-target="#techCarousel" data-slide-to="2"></li>
+            <li data-target="#techCarousel" data-slide-to="3"></li>
+            <li data-target="#techCarousel" data-slide-to="4"></li>
+            <li data-target="#techCarousel" data-slide-to="5"></li>
+            <li data-target="#techCarousel" data-slide-to="6"></li>
+            <li data-target="#techCarousel" data-slide-to="7"></li>
+            <li data-target="#techCarousel" data-slide-to="8"></li>
+            <li data-target="#techCarousel" data-slide-to="9"></li>
+        </ul>
 
-                <!-- Slideshow -->
-                <div class="carousel-inner text-center">
-                    <div class="carousel-item active item">
-                        <a href="https://www.java.com/" target="_blank">
-                            <img class="" th:src="@{/img/tech/java.png}" alt="Java">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://www.python.org/" target="_blank">
-                            <img class="" th:src="@{/img/tech/python.png}" alt="Python">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://www.rabbitmq.com/" target="_blank">
-                            <img class="" th:src="@{/img/tech/rabbitmq.png}" alt="RabbitMQ">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://getbootstrap.com/" target="_blank">
-                            <img class="" th:src="@{/img/tech/bootstrap.png}" alt="Bootstrap">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://github.com/" target="_blank">
-                            <img class="" th:src="@{/img/tech/github.png}" alt="GitHub">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://www.w3.org/html/" target="_blank">
-                            <img class="" th:src="@{/img/tech/html.png}" alt="HTML">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://jquery.com" target="_blank">
-                            <img class="" th:src="@{/img/tech/jquery.png}" alt="jQuery">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://www.raspberrypi.org" target="_blank">
-                            <img class="" th:src="@{/img/tech/raspberrypi.png}" alt="Raspberry Pi">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://spring.io" target="_blank">
-                            <img class="" th:src="@{/img/tech/spring.png}" alt="Spring">
-                        </a>
-                    </div>
-                    <div class="carousel-item item">
-                        <a href="https://www.thymeleaf.org/" target="_blank">
-                            <img class="" th:src="@{/img/tech/thymeleaf.png}" alt="Thymeleaf">
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Left and right controls -->
-                <a class="carousel-control-prev" href="#techCarousel" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
+        <!-- Slideshow -->
+        <div class="carousel-inner text-center">
+            <div class="carousel-item active item">
+                <a href="https://www.java.com/" target="_blank">
+                    <img class="" th:src="@{/img/tech/java.png}" alt="Java">
                 </a>
-                <a class="carousel-control-next" href="#techCarousel" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://www.python.org/" target="_blank">
+                    <img class="" th:src="@{/img/tech/python.png}" alt="Python">
+                </a>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://www.rabbitmq.com/" target="_blank">
+                    <img class="" th:src="@{/img/tech/rabbitmq.png}" alt="RabbitMQ">
+                </a>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://getbootstrap.com/" target="_blank">
+                    <img class="" th:src="@{/img/tech/bootstrap.png}" alt="Bootstrap">
+                </a>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://github.com/" target="_blank">
+                    <img class="" th:src="@{/img/tech/github.png}" alt="GitHub">
+                </a>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://www.w3.org/html/" target="_blank">
+                    <img class="" th:src="@{/img/tech/html.png}" alt="HTML">
+                </a>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://jquery.com" target="_blank">
+                    <img class="" th:src="@{/img/tech/jquery.png}" alt="jQuery">
+                </a>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://www.raspberrypi.org" target="_blank">
+                    <img class="" th:src="@{/img/tech/raspberrypi.png}" alt="Raspberry Pi">
+                </a>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://spring.io" target="_blank">
+                    <img class="" th:src="@{/img/tech/spring.png}" alt="Spring">
+                </a>
+            </div>
+            <div class="carousel-item item">
+                <a href="https://www.thymeleaf.org/" target="_blank">
+                    <img class="" th:src="@{/img/tech/thymeleaf.png}" alt="Thymeleaf">
                 </a>
             </div>
         </div>
-    </main>
 
-    <div th:insert="fragments/footer :: footer"></div>
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#techCarousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#techCarousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+</main>
+
+<div th:insert="fragments/footer :: footer"></div>
 
 </body>
 

@@ -10,22 +10,46 @@
 
 <body>
 
-    <div th:insert="fragments/header :: header"></div>
+<div th:insert="fragments/header :: header"></div>
 
-    <main role="main" class="container align-middle">
 
-        <div class="starter-template">
-            <h1>Malinowy Robot</h1>
-            <span th:text="${username}">Siema, </span>
+
+<main role="main" class="container">
+    <div class="container p-2 text-center text-dark font-weight-bold">
+        <h1 th:text="${username}"/>
+    </div>
+
+    <div class="container p-3 text-center text-dark font-weight-light font-italic">
+        Zapraszam do wypróbowania mojej autorskiej aplikacji wraz z dołączonym urządzeniem.
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="container p-3 my-3 bg-secondary text-white text-center font-weight-bold">
+                Przejmij kontrolę nad robotem
+            </div>
+            <div class="container p-5 border border-secondary text-center ">
+                Przechodząc do zakładki "Kontroler" możesz zacząć zabawę z robotem. Steruj urządzeniem za pomocą
+                klawiatury czy dotykowego ekranu w Twoim telefonie.
+                <div class="w-100"></div>
+                <a href="/robot" class="badge badge-pill badge-secondary p-3 mt-4">Kontroler</a>
+            </div>
         </div>
+        <div class="col">
+            <div class="container p-3 my-3 bg-secondary text-white text-center font-weight-bold">
+                Sprawdź jak to działa
+            </div>
+            <div class="container p-5 border border-secondary text-center">
+                W zakładce "Technologie" czekają na Ciebie wszelkie informacje dotyczące stosu technologicznego
+                użytego do stworzenia robota oraz aplikacji służącej do jego obsługi.
+                <div class="w-100"></div>
+                <a href="/tech" class="badge badge-pill badge-secondary p-3 mt-4">Technologie</a>
+            </div>
+        </div>
+    </div>
+</main>
 
-        <ol>
-            <li th:each="task : ${tasks}" th:text="${task}"></li>
-        </ol>
-
-    </main>
-
-    <div th:insert="fragments/footer :: footer"></div>
+<div th:insert="fragments/footer :: footer"></div>
 
 </body>
 
