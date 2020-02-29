@@ -17,7 +17,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Autowired
     User user;
 
-    private ArrayList<String> excludedItemsList = new ArrayList<>(Arrays.asList("css", "js", "png", "welcome", "logout"));
+    private ArrayList<String> excludedItemsList = new ArrayList<>(Arrays.asList("css", "js", "png", "welcome", "logout", "error"));
 
     private boolean isStringContainsTextFromArray(String string, ArrayList<String> textList) {
         return textList.stream().anyMatch(string::contains);
