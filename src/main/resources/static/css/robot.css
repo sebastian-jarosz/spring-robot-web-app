@@ -11,19 +11,6 @@
     padding-bottom: 100%;
 }
 
-.btn-rectangle {
-    position: relative;
-    width: 40%;
-    max-height: 10rem;
-    max-width: 30rem;
-}
-
-.btn-rectangle:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-}
-
 .center-content {
     position: absolute;
     top: 50%;
