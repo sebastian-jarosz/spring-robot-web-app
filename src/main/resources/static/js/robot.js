@@ -125,6 +125,8 @@ $('#killButton').on('click', function (e) {
     $('#main').hide();
     $('#turningOffInfo').show();
     var killMessage = $('#killButton').val();
+    var stopMessage = $('#stopButton').val();
+    sendAjaxRequest(stopMessage);
     sendAjaxRequest(killMessage);
 });
 
