@@ -17,7 +17,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Autowired
     User user;
 
-    private ArrayList<String> excludedItemsList = new ArrayList<>(Arrays.asList("css", "js", "png", "welcome", "logout", "error"));
+    private ArrayList<String> excludedItemsList = new ArrayList<>(Arrays.asList("css", "js", "png", "welcome", "logout", "error", "turnOff"));
 
     private boolean isStringContainsTextFromArray(String string, ArrayList<String> textList) {
         return textList.stream().anyMatch(string::contains);
@@ -27,7 +27,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
 
-        if (user.getUsername() != null || request.getMethod().equals(RequestMethod.POST) || isStringContainsTextFromArray(request.getRequestURL().toString(), excludedItemsList)){
+        if (user.getUsername() != null || request.getMethod().equals(RequestMethod.POST) || isStringContainsTextFromArray(request.getRequestURL().toString(), excludedItemsList)) {
             return true;
         } else {
             System.out.println(request.getRequestURL().toString());

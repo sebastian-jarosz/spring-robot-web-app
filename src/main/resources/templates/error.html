@@ -8,18 +8,20 @@
 <body>
 
 
-    <div th:insert="fragments/cssLinks :: header"></div>
+<div th:insert="fragments/cssLinks :: header"></div>
 
-    <main role="main" class="container align-middle">
-
-        <div class="container">
-            <span>Error</span>
-            <a class="nav-link" href="/">Wróć</a>
+<main role="main" class="container">
+    <div class="card text-white bg-dark p-2 text-center vertical-center-card">
+        <h6 class="card-header text-center">Nie znaleziono strony</h6>
+        <div class="card-body">
+            <div>
+                <a class="btn btn-md btn-secondary text-center" href="/welcome">Wróć!</a>
+            </div>
         </div>
+    </div>
+</main>
 
-    </main>
-
-    <div th:insert="fragments/jsScripts :: footer"></div>
+<div th:insert="fragments/jsScripts :: footer"></div>
 
 </body>
 </html>

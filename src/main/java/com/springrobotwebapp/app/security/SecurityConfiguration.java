@@ -17,11 +17,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         //Temporary admin with not encoded password
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("user")
-                .roles("USER")
-                .build();
 
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
@@ -30,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .build();
 
         //User in memory
-        return new InMemoryUserDetailsManager(userDetails, admin);
+        return new InMemoryUserDetailsManager(admin);
     }
 
     @Override

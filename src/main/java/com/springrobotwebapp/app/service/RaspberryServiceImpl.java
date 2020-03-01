@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 @Service
-public class RaspberryServiceImpl implements RaspberryService{
+public class RaspberryServiceImpl implements RaspberryService {
 
     public Boolean isListening = Boolean.FALSE;
     public Boolean isMqttProcessRunning = Boolean.FALSE;
@@ -29,6 +29,7 @@ public class RaspberryServiceImpl implements RaspberryService{
     private String runListenerCommand = "nohup python3 Desktop/robot_mqtt_subscriber.py\n";
     private String killListenerCommand = "pkill python3\n exit\n";
     private String checkMqttProcessCommand = "sudo rabbitmq-plugins list rabbitmq_mqtt\n";
+    private String turnOffRaspberry = "sudo halt\n";
 
     public RaspberryServiceImpl() {
     }
@@ -53,7 +54,7 @@ public class RaspberryServiceImpl implements RaspberryService{
     public void runMqListener() throws JSchException, IOException {
         getSession();
         checkMqttProcess();
-        if(session != null && isMqttProcessRunning && !isListening) {
+        if (session != null && isMqttProcessRunning && !isListening) {
             Channel channel = session.openChannel("shell");
             channel.setInputStream(new ByteArrayInputStream(runListenerCommand.getBytes(StandardCharsets.UTF_8)));
             channel.setOutputStream(System.out);
@@ -139,9 +140,35 @@ public class RaspberryServiceImpl implements RaspberryService{
 
     public Session getSession() {
         //In case of closed connection
-        if(session == null || !session.isConnected()) {
+        if (session == null || !session.isConnected()) {
             connectToRaspberry();
         }
         return session;
+    }
+
+    @Override
+    public void turnOffRaspberry() throws JSchException, IOException {
+        getSession();
+        if (session != null) {
+            Channel channel = session.openChannel("shell");
+            channel.setInputStream(new ByteArrayInputStream(turnOffRaspberry.getBytes(StandardCharsets.UTF_8)));
+            channel.setOutputStream(System.out);
+            InputStream inputStream = channel.getInputStream();
+            StringBuilder outBuff = new StringBuilder();
+            channel.connect();
+
+            while (true) {
+                for (int c; ((c = inputStream.read()) >= 0); ) {
+                    outBuff.append((char) c);
+                }
+
+                if (channel.isClosed()) {
+                    if (inputStream.available() > 0) continue;
+                    break;
+                }
+            }
+            channel.disconnect();
+            System.out.println(outBuff.toString());
+        }
     }
 }

@@ -78,4 +78,10 @@ public class RobotController {
         return ResponseEntity.ok(hashMap);
     }
 
+    //Turn off RaspberryPi
+    @GetMapping("/turnOff")
+    public String turnOff() throws IOException, JSchException {
+        raspberryService.turnOffRaspberry();
+        return "welcome";
+    }
 }
