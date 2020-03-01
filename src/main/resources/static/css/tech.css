@@ -1,7 +1,7 @@
 #techCarousel img{
     max-width: 20rem;
     max-height: 20rem;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
