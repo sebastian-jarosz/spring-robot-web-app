@@ -2,8 +2,11 @@ body {
     background-color: white;
 }
 
-.vertical-center {
-    min-height: 100%;
-    display: flex;
-    align-items: center;
+.vertical-center-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 30rem;
 }

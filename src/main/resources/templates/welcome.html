@@ -12,8 +12,8 @@
 <div th:insert="fragments/cssLinks :: header"></div>
 
 <main role="main" class="container">
-    <div class="card text-white bg-dark m-5 p-2" style="max-width: 100rem;">
-        <h6 class="card-header text-center">Malinowy Robot</h6>
+    <div class="card text-white bg-dark p-2 text-center vertical-center-card">
+        <h6 class="card-header">Malinowy Robot</h6>
         <div class="card-body">
             <form name="f" th:action="@{/welcome}" method="post">
                 <div class="form-group">
@@ -21,7 +21,7 @@
                            placeholder="Wpisz swoje imię"
                            required>
                 </div>
-                <div class="text-center">
+                <div>
                     <button class="btn mt-3 btn-md btn-secondary text-center" type="submit">Zaczynamy!</button>
                 </div>
             </form>

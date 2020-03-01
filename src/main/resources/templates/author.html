@@ -6,30 +6,38 @@
 
     <title>Malinowy Robot - O autorze</title>
 
+    <!--Icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
 </head>
 <body>
 
-    <div th:insert="fragments/header :: header"></div>
+<div th:insert="fragments/header :: header"></div>
 
-    <main role="main" class="container">
+<main role="main" class="container">
 
-        <div class="card" style="width: 25rem;">
-            <h6 class="card-header">Sebastian Jarosz</h6>
-            <img class="card-img-overlay" th:src="@{/img/sebastian_jarosz.png}">
+    <div class="container">
+        <div class="card text-white bg-secondary  m-5 p-2 mx-auto " style="max-width: 30rem;">
+            <h5 class="card-header">O Autorze</h5>
+            <img class="card-img-top" th:src="@{/img/autor.png}">
             <div class="card-body">
+                <h5 class="card-title">Sebastian Jarosz.</h5>
                 <p class="card-text">
-                    Jestem studenciak
+                    Junior Java Developer w firmie Sapiens.
                 </p>
-            </div>
-            <div class="card-body">
-                <a href="https://pl.linkedin.com/in/sjarosz" class="card-link">LinkedIn</a>
+                <p class="card-text">
+                    Prywatnie biegacz, jeden z liderów grupy biegowej "Siemianowice i Przyjaciele Biegają".
+                </p>
+                <a href="https://pl.linkedin.com/in/sjarosz"
+                   class="badge badge-dark p-3 text-white fab fa-linkedin" target="_blank"> LinkedIn</a>
             </div>
         </div>
+    </div>
 
-    </main>
+</main>
 
-
-    <div th:insert="fragments/footer :: footer"></div>
+<div th:insert="fragments/footer :: footer"></div>
 
 </body>
 
