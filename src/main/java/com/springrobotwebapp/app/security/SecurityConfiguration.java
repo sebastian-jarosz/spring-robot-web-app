@@ -14,19 +14,16 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        //Temporary admin with not encoded password
-
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("admin")
-                .roles("ADMIN")
-                .build();
-
-        //User in memory
-        return new InMemoryUserDetailsManager(admin);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails admin = User.withDefaultPasswordEncoder()
+//                .username("admin")
+//                .password("admin")
+//                .roles("ADMIN")
+//                .build();
+//        //User in memory
+//        return new InMemoryUserDetailsManager(admin);
+//    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {

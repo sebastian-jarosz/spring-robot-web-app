@@ -27,7 +27,8 @@ public class RequestInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
 
-        if (user.getUsername() != null || request.getMethod().equals(RequestMethod.POST) || isStringContainsTextFromArray(request.getRequestURL().toString(), excludedItemsList)) {
+        if (user.getUsername() != null || request.getMethod().equals(RequestMethod.POST) ||
+                isStringContainsTextFromArray(request.getRequestURL().toString(), excludedItemsList)) {
             return true;
         } else {
             System.out.println(request.getRequestURL().toString());

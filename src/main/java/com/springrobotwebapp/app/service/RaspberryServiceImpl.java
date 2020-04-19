@@ -5,7 +5,6 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import org.springframework.stereotype.Service;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +16,12 @@ public class RaspberryServiceImpl implements RaspberryService {
     public Boolean isListening = Boolean.FALSE;
     public Boolean isMqttProcessRunning = Boolean.FALSE;
 
+    //Commands
+    private final String RUN_LISTENER_COMMAND = "nohup python3 Desktop/robot_mqtt_subscriber.py\n";
+    private final String KILL_LISTENER_COMMAND = "pkill python3\n exit\n";
+    private final String CHECK_MQTT_PROCESS_COMMAND = "sudo rabbitmq-plugins list rabbitmq_mqtt\n";
+    private final String TURN_OFF_RASPBERRY_COMMAND = "sudo halt\n";
+
     private final String USER = "pi";
     private final String PASSWORD = "Sebaj132!";
     private final String HOST = "malinkaseba.local";
@@ -24,12 +29,6 @@ public class RaspberryServiceImpl implements RaspberryService {
     private final String RUNNING_STATUS = "[E*]";
 
     private Session session;
-
-    //Commands
-    private String runListenerCommand = "nohup python3 Desktop/robot_mqtt_subscriber.py\n";
-    private String killListenerCommand = "pkill python3\n exit\n";
-    private String checkMqttProcessCommand = "sudo rabbitmq-plugins list rabbitmq_mqtt\n";
-    private String turnOffRaspberry = "sudo halt\n";
 
     public RaspberryServiceImpl() {
     }
@@ -56,7 +55,7 @@ public class RaspberryServiceImpl implements RaspberryService {
         checkMqttProcess();
         if (session != null && isMqttProcessRunning && !isListening) {
             Channel channel = session.openChannel("shell");
-            channel.setInputStream(new ByteArrayInputStream(runListenerCommand.getBytes(StandardCharsets.UTF_8)));
+            channel.setInputStream(new ByteArrayInputStream(RUN_LISTENER_COMMAND.getBytes(StandardCharsets.UTF_8)));
             channel.setOutputStream(System.out);
             InputStream inputStream = channel.getInputStream();
             StringBuilder outBuff = new StringBuilder();
@@ -83,7 +82,7 @@ public class RaspberryServiceImpl implements RaspberryService {
         getSession();
         if (session != null && !isMqttProcessRunning) {
             Channel channel = session.openChannel("shell");
-            channel.setInputStream(new ByteArrayInputStream(checkMqttProcessCommand.getBytes(StandardCharsets.UTF_8)));
+            channel.setInputStream(new ByteArrayInputStream(CHECK_MQTT_PROCESS_COMMAND.getBytes(StandardCharsets.UTF_8)));
             channel.setOutputStream(System.out);
             InputStream inputStream = channel.getInputStream();
             StringBuilder outBuff = new StringBuilder();
@@ -114,7 +113,7 @@ public class RaspberryServiceImpl implements RaspberryService {
         getSession();
         if (session != null) {
             Channel channel = session.openChannel("shell");
-            channel.setInputStream(new ByteArrayInputStream(killListenerCommand.getBytes(StandardCharsets.UTF_8)));
+            channel.setInputStream(new ByteArrayInputStream(KILL_LISTENER_COMMAND.getBytes(StandardCharsets.UTF_8)));
             channel.setOutputStream(System.out);
             InputStream inputStream = channel.getInputStream();
             StringBuilder outBuff = new StringBuilder();
@@ -151,7 +150,7 @@ public class RaspberryServiceImpl implements RaspberryService {
         getSession();
         if (session != null) {
             Channel channel = session.openChannel("shell");
-            channel.setInputStream(new ByteArrayInputStream(turnOffRaspberry.getBytes(StandardCharsets.UTF_8)));
+            channel.setInputStream(new ByteArrayInputStream(TURN_OFF_RASPBERRY_COMMAND.getBytes(StandardCharsets.UTF_8)));
             channel.setOutputStream(System.out);
             InputStream inputStream = channel.getInputStream();
             StringBuilder outBuff = new StringBuilder();

@@ -67,6 +67,7 @@ function killFunction(result) {
     }
 }
 
+//Function executed while message is 'speed'
 function changeSpeedFunction(result){
     if(result.IS_TOP_SPEED_MODE_ON === 'true'){
         $('#speedButton').text('TRYB WOLNY').removeClass('btn-danger').addClass('btn-info');
