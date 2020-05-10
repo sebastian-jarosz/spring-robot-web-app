@@ -58,6 +58,9 @@ public class RobotController {
             hashMap.put(IS_TOP_SPEED_MODE_ON_STRING, isTopSpeedModeOn.toString());
         } else if ("connect".equals(button)) {
             raspberryService.runMqListener();
+            if (raspberryService.isListening && raspberryService.isMqttProcessRunning) {
+                robotService.sendStopMessage();
+            }
             hashMap.put(IS_LISTENING_STRING, raspberryService.isListening.toString());
             hashMap.put(IS_MQTT_PROCESS_RUNNING_STRING, raspberryService.isMqttProcessRunning.toString());
         } else if ("kill".equals(button)) {

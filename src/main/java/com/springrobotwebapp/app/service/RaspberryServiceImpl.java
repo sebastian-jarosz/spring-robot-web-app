@@ -45,13 +45,16 @@ public class RaspberryServiceImpl implements RaspberryService {
             System.out.println("Connection established.");
             this.session = session;
         } catch (JSchException e) {
-            e.printStackTrace();
+            System.out.println("Connection not established.");
         }
     }
 
     @Override
     public void runMqListener() throws JSchException, IOException {
         getSession();
+        if(session == null) {
+            return;
+        }
         checkMqttProcess();
         if (session != null && isMqttProcessRunning && !isListening) {
             Channel channel = session.openChannel("shell");
@@ -79,7 +82,6 @@ public class RaspberryServiceImpl implements RaspberryService {
 
     @Override
     public void checkMqttProcess() throws JSchException, IOException {
-        getSession();
         if (session != null && !isMqttProcessRunning) {
             Channel channel = session.openChannel("shell");
             channel.setInputStream(new ByteArrayInputStream(CHECK_MQTT_PROCESS_COMMAND.getBytes(StandardCharsets.UTF_8)));

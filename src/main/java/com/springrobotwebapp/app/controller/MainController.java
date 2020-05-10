@@ -43,7 +43,6 @@ public class MainController implements ErrorController {
     //Handling Post request to /welcome path
     @PostMapping("/welcome")
     public String postWelcome(@RequestParam(Constants.USERNAME) String username, Model model) {
-        System.out.println(username);
         user.setUsername(username);
         model.addAttribute(Constants.USERNAME, Constants.WELCOME_MESSAGE + user.getUsername() + Constants.EXCLAMATION_MARK);
         return "main";

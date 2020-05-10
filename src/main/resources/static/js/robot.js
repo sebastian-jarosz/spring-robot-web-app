@@ -116,7 +116,6 @@ $('#connectButton').on('click', function (e) {
     var connectMessage = $('#connectButton').val();
     var stopMessage = $('#stopButton').val();
     sendAjaxRequest(connectMessage);
-    sendAjaxRequest(stopMessage);
 });
 
 //Function used for connecting to robot
