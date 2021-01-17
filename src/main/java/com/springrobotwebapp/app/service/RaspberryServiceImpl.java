@@ -23,7 +23,7 @@ public class RaspberryServiceImpl implements RaspberryService {
     private final String TURN_OFF_RASPBERRY_COMMAND = "sudo halt\n";
 
     private final String USER = "pi";
-    private final String PASSWORD = "Sebaj132!";
+    private final String PASSWORD = "";
     private final String HOST = "malinkaseba.local";
     private final int PORT = 22;
     private final String RUNNING_STATUS = "[E*]";
